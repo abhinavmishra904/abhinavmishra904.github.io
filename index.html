@@ -12,6 +12,10 @@
   <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
   <meta property="og:type" content="website">
   <!-- Day 11: the ONE shared stylesheet for every page -->
+  <!-- PERF: preconnect opens the connections to Google Fonts early; the font CSS loads in parallel with style.css (was an @import chain) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -39,7 +43,8 @@
     <section aria-labelledby="hero-heading">
       <h1 id="hero-heading">Abhinav Mishra</h1>
       <p>Java Full Stack Developer building reliable backend services, fintech workflows, and accessible web interfaces.</p>
-      <img src="images/profile.jpeg" alt="Portrait of Abhinav Mishra" width="320" height="320" fetchpriority="high">
+      <!-- PERF FIX (Lighthouse LCP): the 800px original (86 KB) was shown at 320px. srcset offers a 320px file for normal screens and 640px for 2x (Retina) screens; the browser picks one. profile.jpeg stays for og:image. -->
+      <img src="images/profile-320.jpg" srcset="images/profile-320.jpg 1x, images/profile-640.jpg 2x" alt="Portrait of Abhinav Mishra" width="320" height="320" fetchpriority="high">
       <p>
         <a href="blog.html">View my work</a>
         <a href="apply.html">Hire me</a>

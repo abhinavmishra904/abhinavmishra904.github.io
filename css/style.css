@@ -8,9 +8,13 @@
 
 
 /* ===================================================================
-   0. FONTS — @import must be the FIRST rule in the file
+   0. FONTS — loaded in each page's <head> with <link>, NOT @import here
+   PERF FIX (Lighthouse FCP): @import inside a stylesheet is only found AFTER
+   style.css downloads, so the font CSS became a 3rd round trip before first
+   paint (HTML → style.css → fonts.googleapis.com). <link> + preconnect in the
+   HTML lets the browser fetch both in parallel. display=swap still shows the
+   fallback font immediately.
    =================================================================== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
 
 
 /* ===================================================================

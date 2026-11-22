@@ -13,6 +13,10 @@
   <meta property="og:type" content="website">
   <!-- Day 11: the ONE shared stylesheet for every page -->
   <!-- GitHub Pages: 404.html is served for ANY missing URL (e.g. /a/b/c), so paths start with "/" (site root). Opened locally via file:// it looks unstyled; that is expected. -->
+  <!-- PERF: preconnect opens the connections to Google Fonts early; the font CSS loads in parallel with style.css (was an @import chain) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>

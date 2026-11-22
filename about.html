@@ -31,6 +31,10 @@
   <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
   <meta property="og:type" content="profile">
   <!-- Day 11: the ONE shared stylesheet for every page -->
+  <!-- PERF: preconnect opens the connections to Google Fonts early; the font CSS loads in parallel with style.css (was an @import chain) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -91,7 +95,8 @@
            src    = path to the image file (here: the images/ sub-folder — a relative path)
            alt    = text description for screen readers, or shown if the image fails to load
            width/height = reserve space so the page doesn't jump while the image loads -->
-      <img src="images/profile.jpeg" alt="Professional portrait headshot of Abhinav Mishra" width="150" height="150">
+      <!-- PERF: shown at 150px, so the 320px file covers 2x screens too (not lazy: it is near the top of the page) -->
+      <img src="images/profile-320.jpg" alt="Professional portrait headshot of Abhinav Mishra" width="150" height="150">
 
       <!-- <p>: a paragraph of text. Browsers add space above and below it automatically. -->
       <p>

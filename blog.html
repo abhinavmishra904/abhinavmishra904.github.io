@@ -23,6 +23,10 @@
   <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
   <meta property="og:type" content="article">
   <!-- Day 11: the ONE shared stylesheet for every page -->
+  <!-- PERF: preconnect opens the connections to Google Fonts early; the font CSS loads in parallel with style.css (was an @import chain) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
