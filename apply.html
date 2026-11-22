@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- title: UNIQUE per page — pattern "Page | Site name" -->
+  <title>Contact / Hire me | Abhinav Mishra</title>
+  <!-- description: UNIQUE per page -->
+  <meta name="description" content="Hire Abhinav Mishra, Java Full Stack Developer: share role details, experience requirements and your offer through this contact form.">
+  <meta name="author" content="Abhinav Mishra">
+
+  <!-- favicon: the same "AM" SVG icon on every page -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23111827'/%3E%3Ctext%20x='50%25'%20y='56%25'%20dominant-baseline='middle'%20text-anchor='middle'%20fill='%23ffffff'%20font-family='sans-serif'%20font-size='14'%20font-weight='bold'%3EAM%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph: the preview card when this page is shared -->
+  <meta property="og:title" content="Contact / Hire me | Abhinav Mishra">
+  <meta property="og:description" content="Get in touch with Abhinav Mishra about Java Full Stack roles.">
+  <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
+  <meta property="og:type" content="website">
+  <!-- Day 11: the ONE shared stylesheet for every page -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Skip link: first thing in <body>, lets keyboard users jump past the header -->
+  <a href="#main-content">Skip to main content</a>
+
+  <!-- SHARED header: identical on every page, except where aria-current sits -->
+  <header>
+    <a href="index.html" aria-label="Abhinav Mishra Home">
+      <svg width="36" height="36" viewBox="0 0 36 36" role="img" aria-label="AM monogram logo">
+        <rect width="36" height="36" rx="8" fill="#111827"></rect>
+        <text x="18" y="23" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">AM</text>
+      </svg>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <!-- aria-current="page": THIS is the Contact / Hire me page -->
+        <li><a href="apply.html" aria-current="page">Contact / Hire me</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- main: the skip link jumps here -->
+  <main id="main-content">
+    <!-- h1 inside <main>, renamed for the portfolio (PROJECT.md asked for "Contact / Hire me") -->
+    <h1>Contact / Hire me</h1>
+    <p>Hiring for a Java Full Stack Developer role? Share the details below.</p>
+
+    <form method="post" action="/api/applications" enctype="multipart/form-data">
+      <input type="hidden" name="jobId" value="JFS-2026-104">
+
+      <!-- Collects candidate contact and profile details -->
+      <fieldset>
+        <legend>Personal Details</legend>
+
+        <div>
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" name="fullName" required>
+        </div>
+
+        <div>
+          <label for="email">Email Address:</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+
+        <div>
+          <label for="mobileNumber">Mobile Number (10 digits):</label>
+          <input
+            type="tel"
+            id="mobileNumber"
+            name="mobileNumber"
+            pattern="[6-9][0-9]{9}"
+            title="Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9"
+            autocomplete="tel"
+            required
+          >
+        </div>
+
+        <div>
+          <label for="linkedinUrl">LinkedIn Profile URL:</label>
+          <input type="url" id="linkedinUrl" name="linkedinUrl" placeholder="https://linkedin.com/in/your-profile">
+        </div>
+      </fieldset>
+
+      <!-- Captures work experience, compensation expectations, and availability timeline -->
+      <fieldset>
+        <legend>Experience</legend>
+
+        <div>
+          <label for="totalExperience">Total Experience (years):</label>
+          <input type="number" id="totalExperience" name="totalExperience" min="0" max="40" step="0.1">
+        </div>
+
+        <div>
+          <label for="currentCtc">Current CTC (LPA):</label>
+          <input type="number" id="currentCtc" name="currentCtc" min="0" step="0.1">
+        </div>
+
+        <div>
+          <label for="expectedCtc">Expected CTC (LPA):</label>
+          <input type="number" id="expectedCtc" name="expectedCtc" min="0" step="0.1">
+        </div>
+
+        <div>
+          <label for="noticePeriod">Notice Period:</label>
+          <select id="noticePeriod" name="noticePeriod">
+            <option value="">-- Select Notice Period --</option>
+            <option value="IMMEDIATE">Immediate</option>
+            <option value="15_DAYS">15 days</option>
+            <option value="30_DAYS">30 days</option>
+            <option value="60_DAYS">60 days</option>
+            <option value="90_DAYS">90 days</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="availableFrom">Available From:</label>
+          <input type="date" id="availableFrom" name="availableFrom">
+        </div>
+      </fieldset>
+
+      <!-- Records work mode, core technical skills, and preferred work locations -->
+      <fieldset>
+        <legend>Preferences</legend>
+
+        <fieldset>
+          <legend>Work Mode</legend>
+          <label>
+            <input type="radio" name="workMode" value="HYBRID" checked>
+            Hybrid
+          </label>
+          <label>
+            <input type="radio" name="workMode" value="REMOTE">
+            Remote
+          </label>
+          <label>
+            <input type="radio" name="workMode" value="ONSITE">
+            On-site
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Core Skills</legend>
+          <label>
+            <input type="checkbox" name="skills" value="Java">
+            Java
+          </label>
+          <label>
+            <input type="checkbox" name="skills" value="Spring Boot">
+            Spring Boot
+          </label>
+          <label>
+            <input type="checkbox" name="skills" value="Microservices">
+            Microservices
+          </label>
+          <label>
+            <input type="checkbox" name="skills" value="React">
+            React
+          </label>
+          <label>
+            <input type="checkbox" name="skills" value="Angular">
+            Angular
+          </label>
+          <label>
+            <input type="checkbox" name="skills" value="SQL">
+            SQL
+          </label>
+        </fieldset>
+
+        <div>
+          <label for="preferredCity">Preferred City:</label>
+          <input type="text" id="preferredCity" name="preferredCity" list="cityOptions">
+          <datalist id="cityOptions">
+            <option value="Mumbai"></option>
+            <option value="Bengaluru"></option>
+            <option value="Pune"></option>
+            <option value="Hyderabad"></option>
+            <option value="Chennai"></option>
+          </datalist>
+        </div>
+      </fieldset>
+
+      <!-- Handles resume file upload and cover letter submission -->
+      <fieldset>
+        <legend>Documents</legend>
+
+        <div>
+          <label for="resumeFile">Resume (PDF only):</label>
+          <input type="file" id="resumeFile" name="resumeFile" accept=".pdf,application/pdf" required>
+        </div>
+
+        <div>
+          <label for="coverLetter">Cover Letter (minimum 50 characters):</label>
+          <textarea id="coverLetter" name="coverLetter" rows="5" cols="50" minlength="50" required></textarea>
+        </div>
+      </fieldset>
+
+      <div>
+        <label>
+          <input type="checkbox" name="confirmDetails" value="true" required>
+          I confirm the details are correct
+        </label>
+      </div>
+
+      <div>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+        <button type="submit" name="actionType" value="draft" formnovalidate>Save draft</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- SHARED footer: identical on every page. &copy; shows © -->
+  <footer>
+    <p>&copy; <time datetime="2026">2026</time> Abhinav Mishra</p>
+    <ul>
+      <li><a href="mailto:abhinavmishra904@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://github.com/abhinavmishra904" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    </ul>
+  </footer>
+
+  <!--
+  Spring Boot Java Record mapping for this form:
+
+  public record JobApplicationRequest(
+      String jobId,
+      String fullName,
+      String email,
+      String mobileNumber,
+      String linkedinUrl,
+      Double totalExperience,
+      Double currentCtc,
+      Double expectedCtc,
+      String noticePeriod,
+      LocalDate availableFrom,
+      String workMode,
+      List<String> skills,
+      String preferredCity,
+      MultipartFile resumeFile,
+      String coverLetter,
+      boolean confirmDetails
+  ) {}
+  -->
+
+</body>
+</html>

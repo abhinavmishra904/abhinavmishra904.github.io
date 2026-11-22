@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- title: UNIQUE per page — pattern "Page | Site name" -->
+  <title>Dashboard | Abhinav Mishra</title>
+  <!-- description: UNIQUE per page -->
+  <meta name="description" content="Abhinav Mishra's full stack learning dashboard: weekly progress, skill levels in Java, Spring Boot, SQL, HTML and CSS, plus media and location.">
+  <meta name="author" content="Abhinav Mishra">
+
+  <!-- favicon: the same "AM" SVG icon on every page -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23111827'/%3E%3Ctext%20x='50%25'%20y='56%25'%20dominant-baseline='middle'%20text-anchor='middle'%20fill='%23ffffff'%20font-family='sans-serif'%20font-size='14'%20font-weight='bold'%3EAM%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph: the preview card when this page is shared -->
+  <meta property="og:title" content="Full Stack Learning Dashboard | Abhinav Mishra">
+  <meta property="og:description" content="Tracking progress from HTML to Spring Boot + React.">
+  <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
+  <meta property="og:type" content="website">
+  <!-- Day 11: the ONE shared stylesheet for every page -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Skip link: first thing in <body>, lets keyboard users jump past the header -->
+  <a href="#main-content">Skip to main content</a>
+
+  <!-- SHARED header: replaces the Day 4 logo header so every page looks the same -->
+  <header>
+    <a href="index.html" aria-label="Abhinav Mishra Home">
+      <svg width="36" height="36" viewBox="0 0 36 36" role="img" aria-label="AM monogram logo">
+        <rect width="36" height="36" rx="8" fill="#111827"></rect>
+        <text x="18" y="23" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">AM</text>
+      </svg>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="apply.html">Contact / Hire me</a></li>
+        <!-- aria-current="page": THIS is the Dashboard page -->
+        <li><a href="dashboard.html" aria-current="page">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- main: the skip link jumps here -->
+  <main id="main-content">
+    <!-- h1 moved inside <main> -->
+    <h1>Full Stack Learning Dashboard</h1>
+
+    <section id="progress">
+      <h2>Phase-1 Weekly Progress</h2>
+
+      <!-- <progress> represents task completion progress against a defined maximum -->
+      <div>
+        <label for="week1">Week 1 (4/5 days):</label>
+        <progress id="week1" value="4" max="5">4/5 days</progress>
+      </div>
+      <div>
+        <label for="week2">Week 2 (0/5 days):</label>
+        <progress id="week2" value="0" max="5">0/5 days</progress>
+      </div>
+      <div>
+        <label for="week3">Week 3 (0/5 days):</label>
+        <progress id="week3" value="0" max="5">0/5 days</progress>
+      </div>
+      <div>
+        <label for="week4">Week 4 (0/5 days):</label>
+        <progress id="week4" value="0" max="5">0/5 days</progress>
+      </div>
+      <div>
+        <label for="week5">Week 5 (0/5 days):</label>
+        <progress id="week5" value="0" max="5">0/5 days</progress>
+      </div>
+      <div>
+        <label for="week6">Week 6 (0/5 days):</label>
+        <progress id="week6" value="0" max="5">0/5 days</progress>
+      </div>
+
+      <!-- Omitting the value attribute makes <progress> indeterminate (ongoing/unknown duration) -->
+      <div>
+        <label for="next-lesson">Next lesson loading…</label>
+        <progress id="next-lesson">Loading…</progress>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills Gauge</h2>
+
+      <!-- <meter> represents a scalar measurement within a known range (not a progress bar) -->
+      <div>
+        <label for="skill-java">Java:</label>
+        <meter id="skill-java" min="0" max="100" low="35" high="75" optimum="90" value="82">82%</meter> 82%
+      </div>
+      <div>
+        <label for="skill-springboot">Spring Boot:</label>
+        <meter id="skill-springboot" min="0" max="100" low="35" high="75" optimum="90" value="80">80%</meter> 80%
+      </div>
+      <div>
+        <label for="skill-sql">SQL:</label>
+        <meter id="skill-sql" min="0" max="100" low="35" high="75" optimum="90" value="78">78%</meter> 78%
+      </div>
+      <div>
+        <label for="skill-html">HTML:</label>
+        <meter id="skill-html" min="0" max="100" low="35" high="75" optimum="90" value="65">65%</meter> 65%
+      </div>
+      <div>
+        <label for="skill-css">CSS:</label>
+        <meter id="skill-css" min="0" max="100" low="35" high="75" optimum="90" value="40">40%</meter> 40%
+      </div>
+    </section>
+
+    <section id="media">
+      <h2>Media &amp; Visuals</h2>
+
+      <!-- <figure> and <figcaption> group self-contained media with an explanatory caption -->
+      <figure>
+        <!-- <video controls> provides built-in playback controls; multiple <source> elements offer format fallbacks -->
+        <video controls poster="https://picsum.photos/id/106/640/360" width="640" height="360">
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+          Your browser does not support embedded HTML5 video.
+        </video>
+        <figcaption>Sample CC0 video clip from MDN with poster preview.</figcaption>
+      </figure>
+
+      <!-- <picture> lets the browser select different image sources based on viewport/media queries -->
+      <picture>
+        <source media="(min-width: 900px)" srcset="https://picsum.photos/id/1015/900/350">
+        <source media="(min-width: 600px)" srcset="https://picsum.photos/id/1018/600/300">
+        <!-- width/height reserve space so the page doesn't jump while the image loads -->
+        <img src="https://picsum.photos/id/1025/400/250" alt="Responsive scenic workspace and nature view" width="400" height="250">
+      </picture>
+
+      <!-- loading="lazy" defers offscreen image loading until the user scrolls near it -->
+      <div>
+        <img src="https://picsum.photos/id/180/480/300" alt="Laptop and notes on a desk for study sessions" loading="lazy" width="480" height="300">
+      </div>
+    </section>
+
+    <section id="location">
+      <h2>Location — Mumbai</h2>
+      <!-- <iframe> embeds an external webpage (OpenStreetMap) inside a browsing context -->
+      <iframe
+        title="OpenStreetMap of Mumbai, India"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=72.7757%2C18.8928%2C72.9781%2C19.2700&amp;layer=mapnik"
+        width="600"
+        height="350"
+        loading="lazy">
+      </iframe>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <!-- popovertarget links a button to a popover element declaratively without JavaScript -->
+      <button type="button" popovertarget="contact-popover">Show Contact Info</button>
+
+      <!-- popover makes an element behave as a top-layer popover toggled by popovertarget -->
+      <div id="contact-popover" popover>
+        <p><strong>Email:</strong> <a href="mailto:abhinavmishra904@gmail.com">abhinavmishra904@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank" rel="noopener noreferrer">linkedin.com/in/abhinav-mishra-3a20361ab</a></p>
+      </div>
+    </section>
+
+    <section id="reset-area">
+      <h2>Progress Controls</h2>
+      <button type="button" onclick="document.getElementById('reset-dialog').showModal()">Reset progress?</button>
+
+      <!-- <dialog> creates a native modal or non-modal dialog box; method="dialog" closes it on form submit -->
+      <!-- aria-labelledby: the dialog's accessible NAME comes from its heading -->
+      <dialog id="reset-dialog" aria-labelledby="reset-title">
+        <h3 id="reset-title">Reset progress?</h3>
+        <form method="dialog">
+          <p>This will clear your saved learning progress.</p>
+          <!-- Safe choice FIRST + autofocus: pressing Enter right away cancels instead of resetting -->
+          <button type="submit" value="cancel" autofocus>Cancel</button>
+          <button type="submit" value="confirm">Confirm Reset</button>
+        </form>
+      </dialog>
+    </section>
+
+    <section id="todays-goal">
+      <h2>Today's Goal</h2>
+      <!-- sandbox restricts iframe capabilities; srcdoc supplies inline HTML directly instead of an external URL -->
+      <iframe
+        title="Today's Goal Card"
+        sandbox=""
+        srcdoc="<!DOCTYPE html><html><body style='font-family:sans-serif;padding:16px;margin:0;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;'><h3>Today's Goal</h3><p>Complete Day 4 HTML dashboard exercise and review semantic elements.</p></body></html>"
+        width="420"
+        height="130">
+      </iframe>
+    </section>
+  </main>
+
+  <!-- SHARED footer: identical on every page. &copy; shows © -->
+  <footer>
+    <p>&copy; <time datetime="2026">2026</time> Abhinav Mishra</p>
+    <ul>
+      <li><a href="mailto:abhinavmishra904@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://github.com/abhinavmishra904" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

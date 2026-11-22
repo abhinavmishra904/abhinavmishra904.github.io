@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: tells the browser this is an HTML5 document. Always the very first line. -->
+
+<!-- <html> = root element; every other tag lives inside it.
+     lang="en" tells browsers, search engines and screen readers the page is in English. -->
+<html lang="en">
+
+<!-- ================= HEAD =================
+     Information ABOUT the page. Nothing here is shown on the page itself. -->
+
+<head>
+  <!-- charset UTF-8: supports every character (₹, é, emojis). Without it, special characters can show as garbage. -->
+  <meta charset="UTF-8">
+
+  <!-- viewport: makes the page fit the phone's screen width instead of showing a zoomed-out desktop page. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- title: UNIQUE per page — pattern "Page | Site name" -->
+  <title>About | Abhinav Mishra</title>
+
+  <!-- description: UNIQUE per page — Google shows it under the title -->
+  <meta name="description" content="About Abhinav Mishra: Java Full Stack Developer with 4.8+ years building Spring Boot microservices and Angular/React screens for Tier-1 banks. Skills, experience and education.">
+  <meta name="author" content="Abhinav Mishra">
+
+  <!-- favicon: the same "AM" SVG icon on every page -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23111827'/%3E%3Ctext%20x='50%25'%20y='56%25'%20dominant-baseline='middle'%20text-anchor='middle'%20fill='%23ffffff'%20font-family='sans-serif'%20font-size='14'%20font-weight='bold'%3EAM%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph: the preview card when this page is shared on LinkedIn / WhatsApp -->
+  <meta property="og:title" content="About | Abhinav Mishra">
+  <meta property="og:description" content="Java Full Stack Developer — skills, banking-domain experience and education.">
+  <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
+  <meta property="og:type" content="profile">
+  <!-- Day 11: the ONE shared stylesheet for every page -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- ================= BODY =================
+     Everything the user actually SEES goes inside <body>. -->
+
+<body>
+
+  <!-- Skip link: first thing in <body>, lets keyboard users jump past the header -->
+  <a href="#main-content">Skip to main content</a>
+
+  <!-- SHARED header: identical on every page, except where aria-current sits -->
+  <header>
+    <!-- The logo links home; the link's aria-label names it -->
+    <a href="index.html" aria-label="Abhinav Mishra Home">
+      <svg width="36" height="36" viewBox="0 0 36 36" role="img" aria-label="AM monogram logo">
+        <rect width="36" height="36" rx="8" fill="#111827"></rect>
+        <text x="18" y="23" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">AM</text>
+      </svg>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <!-- aria-current="page": THIS is the About page -->
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="apply.html">Contact / Hire me</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- <main>: the main, unique content of the page. Use only ONE <main> per page.
+       id="main-content" is where the skip link jumps to. -->
+  <main id="main-content">
+
+    <!-- <h1>: the ONE main heading, now inside <main> (the shared header has no h1) -->
+    <h1>Abhinav Mishra</h1>
+
+    <!-- Your old in-page links, kept as a SECOND nav. aria-label tells it apart from the Main nav.
+         href="#about" jumps to the element with id="about" on THIS page (an "anchor link"). -->
+    <nav aria-label="On this page">
+      <ul>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+      </ul>
+    </nav>
+
+    <!-- <section>: a group of related content, normally with its own heading.
+         id="about" must be unique on the page — the nav link "#about" uses it to scroll here. -->
+    <section id="about">
+      <!-- <h2>: sub-heading under the h1. Sections use h2, their sub-parts use h3, and so on. -->
+      <h2>About Me</h2>
+
+      <!-- <img>: shows an image. It's a "void" (self-closing) tag — no </img>.
+           src    = path to the image file (here: the images/ sub-folder — a relative path)
+           alt    = text description for screen readers, or shown if the image fails to load
+           width/height = reserve space so the page doesn't jump while the image loads -->
+      <img src="images/profile.jpeg" alt="Professional portrait headshot of Abhinav Mishra" width="150" height="150">
+
+      <!-- <p>: a paragraph of text. Browsers add space above and below it automatically. -->
+      <p>
+        <!-- <strong>: marks text as IMPORTANT (browsers show it bold). -->
+        Hello! I am a <strong>Java Full Stack Developer</strong> with 4.8+ years of experience building banking
+        software for Tier-1 clients on the Intellect Liquidity Management product (iLMS, IGTB). I specialize in building
+        distributed microservices and dynamic front-end applications.
+      </p>
+      <p>
+        <!-- <em>: EMPHASIS (browsers show it italic). Use <strong>/<em> for meaning, not just for looks. -->
+        My technical expertise spans across the back-end with <em>Spring Boot</em> and <em>Java</em>, and the front-end
+        using <em>Angular</em> and <em>React (TypeScript)</em>. I am passionate about writing clean, maintainable code,
+        optimizing performance, and delivering robust liquidity and payment solutions.
+      </p>
+      <p>
+        <!-- <a>: a link.
+             href   = where it goes
+             target="_blank" = open in a NEW tab
+             rel="noopener noreferrer" = security: stops the new tab from controlling this page
+                                         and hides which page the visitor came from -->
+        Connect with me on <a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank"
+          rel="noopener noreferrer">LinkedIn</a>.
+      </p>
+      <p>
+        Check out my code on <a href="https://github.com/abhinavmishra904" target="_blank"
+          rel="noopener noreferrer">GitHub</a>.
+      </p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <!-- <ul> = Unordered List (bullets) — use when the ORDER doesn't matter.
+           Each item goes in an <li> (List Item).
+           &amp; is an "HTML entity" for the & character. & starts entities, so writing &amp; is the safe way to show a plain &. -->
+      <ul>
+        <li>Java (8, 11, 17) &amp; Spring Boot</li>
+        <li>Microservices Architecture &amp; RESTful / GraphQL APIs</li>
+        <li>Angular, React, &amp; TypeScript</li>
+        <li>Apache Kafka &amp; IBM MQ</li>
+        <li>Oracle, PostgreSQL, &amp; MySQL</li>
+        <li>Docker, Kubernetes, &amp; Jenkins CI/CD</li>
+      </ul>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <!-- <ol> = Ordered List (numbers 1, 2, 3) — use when ORDER matters (here: latest job first). -->
+      <ol>
+        <!-- An <li> can hold more than plain text — here it holds a <strong> job title plus a description. -->
+        <li>
+          <strong>Software Developer at Intellect Design Arena Ltd</strong> (Nov 2024 – Present) — Building Simulation,
+          Projection, and Balance Builder microservices for BNP Paribas, along with Angular and React screens.
+          Containerised services with Docker and deployed via Kubernetes and Jenkins CI/CD.
+        </li>
+        <li>
+          <strong>Senior Associate Developer at Rupeeseed Technology Ventures Pvt Ltd</strong> (Jun 2024 – Jul 2024) —
+          Integrated third-party broker REST APIs with authentication and resolved production incidents.
+        </li>
+        <li>
+          <strong>Associate Consultant at Intellect Design Arena Ltd</strong> (Dec 2021 – Jun 2024) — Developed Spring
+          Boot microservices and handled ISO 20022 and SWIFT message integration for Nedbank and Crédit Agricole CIB,
+          achieving zero defects in UAT.
+        </li>
+      </ol>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <!-- <table>: for TABULAR data (rows and columns) — never for page layout.
+           Borders now come from css/style.css (Day 11); the old border="1" attribute was removed. -->
+      <table>
+        <!-- <caption>: the table's title — screen readers announce it first. -->
+        <caption>Education history</caption>
+        <!-- <thead>: the header row(s) of the table. -->
+        <thead>
+          <!-- <tr>: Table Row. -->
+          <tr>
+            <!-- <th>: Table Header cell — bold and centered by default, tells readers what each column means.
+                 scope="col": this header describes its whole COLUMN. -->
+            <th scope="col">Degree</th>
+            <th scope="col">College</th>
+            <th scope="col">Year</th>
+          </tr>
+        </thead>
+        <!-- <tbody>: the actual data rows. -->
+        <tbody>
+          <tr>
+            <!-- <td>: Table Data cell — one value in a row. The number of <td>s should match the number of <th>s. -->
+            <td>Bachelor of Engineering (B.E.) in Computer Engineering</td>
+            <td>Theem College of Engineering, University of Mumbai</td>
+            <td>2017 – 2021</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- SHARED footer: identical on every page.
+       &copy; is the HTML entity for the © symbol. -->
+  <footer>
+    <p>&copy; <time datetime="2026">2026</time> Abhinav Mishra</p>
+    <ul>
+      <li><a href="mailto:abhinavmishra904@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://github.com/abhinavmishra904" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    </ul>
+  </footer>
+
+</body>
+
+</html>
+<!-- Every tag that opens must close (except void tags like <img>, <meta>, <br>, <hr>).
+     Tags must nest properly: <p><strong>…</strong></p> ✅   <p><strong>…</p></strong> ❌ -->
+
+

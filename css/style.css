@@ -1,0 +1,1054 @@
+/* =====================================================================
+   Abhinav Mishra — Portfolio stylesheet (Day 16 reference solution)
+   = the Day 11 stylesheet + a new section 8, PAGE LAYOUT (Day 16), which lays
+   out every page with Flexbox and Grid, mobile-first, from 320px to desktop.
+   ONE file for all 6 pages. Order: fonts → tokens → reset → base →
+   layout → components → page-specific → PAGE LAYOUT → media queries.
+   ===================================================================== */
+
+
+/* ===================================================================
+   0. FONTS — @import must be the FIRST rule in the file
+   =================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+
+
+/* ===================================================================
+   1. TOKENS
+   Every text/background pair below was measured (WCAG AA 4.5:1 text, 3:1 UI)
+   =================================================================== */
+:root {
+  /* Colours — light theme */
+  --brand: #1d4ed8;          /* on --bg 6.4:1, white on it 6.7:1 */
+  --brand-dark: #1e3a8a;     /* hover; white on it 10.4:1 */
+  --brand-soft: #eff6ff;     /* tints: tags, aside, featured */
+  --on-brand: #ffffff;       /* text on brand-coloured buttons */
+  --accent: #b45309;         /* focus ring: 4.8:1 on --bg */
+  --danger: #b91c1c;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;           /* 17.1:1 on --bg */
+  --text-muted: #475569;     /* 7.2:1 on --bg */
+  --border: #cbd5e1;
+  --mark-bg: #fde68a;
+  --mark-text: #0f172a;
+
+  /* The header keeps its own colours so it stays dark in BOTH themes */
+  --header-from: #1e3a8a;
+  --header-to: #1d4ed8;
+  --header-text: #ffffff;    /* 6.7–10.4:1 across the gradient */
+
+  /* Fonts */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale (≈ 1.25 ratio); h1 is fluid but still follows the user's text zoom */
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5rem;
+  --step-3: 1.875rem;
+  --step-4: clamp(2rem, 1.4rem + 2.5vw, 3rem);
+
+  /* Shape, depth, motion */
+  --radius: 0.5rem;
+  --radius-sm: 0.25rem;
+  --shadow: 0 2px 6px rgb(15 23 42 / 0.08);
+  --shadow-hover: 0 10px 24px rgb(15 23 42 / 0.14);
+  --speed: 180ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --tap: 2.75rem;            /* 44px minimum touch target */
+
+  color-scheme: light dark;  /* the browser darkens scrollbars and controls when the OS is dark */
+}
+
+/* Dark theme: ONLY variables change — no extra rules needed anywhere else */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand: #60a5fa;        /* on --bg 7.4:1 */
+    --brand-dark: #93c5fd;   /* hover gets LIGHTER on dark */
+    --brand-soft: #1e293b;
+    --on-brand: #0b1120;     /* dark text on light-blue buttons 7.4:1 */
+    --accent: #fbbf24;
+    --danger: #f87171;
+    --bg: #0b1120;
+    --surface: #111827;
+    --text: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --mark-bg: #854d0e;
+    --mark-text: #fefce8;
+    --shadow: 0 2px 8px rgb(0 0 0 / 0.45);
+    --shadow-hover: 0 10px 24px rgb(0 0 0 / 0.65);
+  }
+}
+
+
+/* ===================================================================
+   2. RESET
+   =================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+input, button, select, textarea {
+  font: inherit;             /* form controls don't inherit fonts by default */
+  color: inherit;
+}
+
+img, video, iframe, svg, canvas {
+  max-width: 100%;           /* never overflow the container (phones!) */
+}
+
+img, video {
+  height: auto;              /* keep the aspect ratio when shrinking */
+}
+
+
+/* ===================================================================
+   3. BASE — plain element selectors
+   =================================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  accent-color: var(--brand);          /* checkboxes, radios, range, progress */
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  text-wrap: balance;
+  margin: 1.75em 0 0.5em;
+}
+h1 { font-size: var(--step-4); font-weight: 800; letter-spacing: -0.02em; margin-top: 0.5em; }
+h2 { font-size: var(--step-3); font-weight: 700; color: var(--brand); }
+h3 { font-size: var(--step-1); font-weight: 600; }
+
+main p,
+main li,
+main dd {
+  max-width: 65ch;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--brand);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--speed) var(--ease), text-decoration-thickness var(--speed) var(--ease);
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Jumping to a #section leaves a little space above the heading */
+[id] { scroll-margin-top: 1rem; }
+
+code, pre, kbd { font-family: var(--font-mono); font-size: 0.9em; }
+code {
+  background: var(--brand-soft);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+}
+pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+}
+pre code { background: none; padding: 0; }   /* no double background inside code blocks */
+kbd {
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-sm);
+  padding: 0.05em 0.4em;
+  background: var(--surface);
+}
+
+small { font-size: var(--step--1); color: var(--text-muted); }
+
+mark {
+  background: var(--mark-bg);
+  color: var(--mark-text);
+  padding: 0 0.15em;
+  border-radius: 0.15em;
+}
+
+del { color: var(--text-muted); }
+ins { text-decoration-color: var(--brand); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+caption {
+  text-align: left;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+th { background: var(--brand-soft); }
+
+figure { margin: 1.5rem 0; }
+figcaption { font-size: var(--step--1); color: var(--text-muted); margin-top: 0.5rem; }
+
+blockquote {
+  margin: 0;
+  padding: 0.5rem 1.25rem;
+  border-left: 4px solid var(--brand);
+  font-size: var(--step-1);
+  font-style: italic;
+}
+blockquote p { margin: 0; }
+
+address { font-style: normal; }
+
+
+/* ===================================================================
+   4. LAYOUT — the landmarks share one centred column
+   =================================================================== */
+body > header,
+main,
+body > footer {
+  max-width: 60rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+main {
+  padding-block: 1rem 3rem;
+}
+
+/* Skip link: off-screen until a keyboard user tabs to it (never display: none) */
+a[href="#main-content"] {
+  position: absolute;
+  left: -9999px;
+}
+a[href="#main-content"]:focus {
+  position: static;
+  display: inline-block;
+  margin: 0.75rem 1rem;
+  padding: 0.6rem 1rem;
+  background: var(--brand);
+  color: var(--on-brand);
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+
+
+/* ===================================================================
+   5. COMPONENTS
+   =================================================================== */
+
+/* ---------- Site header (body > header skips the blog article's own <header>) ---------- */
+body > header {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, var(--header-from), var(--header-to));
+  color: var(--header-text);
+  border-radius: var(--radius);
+}
+
+body > header > a {                 /* the logo link */
+  display: inline-block;
+  border-radius: var(--radius);
+}
+body > header svg { display: block; width: 2.75rem; height: 2.75rem; }
+
+body > header :focus-visible {
+  outline-color: var(--header-text);   /* amber on blue was 1.33:1; white is 6.7:1+ */
+}
+
+/* ---------- Main nav: touch-friendly chips ---------- */
+nav[aria-label="Main"] ul {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+nav[aria-label="Main"] li {
+  display: inline-block;
+  margin: 0 0.25rem 0.25rem 0;
+}
+nav[aria-label="Main"] a {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 0.6rem 1rem;
+  color: var(--header-text);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 999px;
+}
+nav[aria-label="Main"] a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* Current page: a white pill (10.4:1), clearly different from the other links.
+   (0,2,2) ties with "nav[aria-label] a:hover" and comes later, so it wins on hover too — no !important */
+nav[aria-label="Main"] a[aria-current="page"] {
+  background: var(--header-text);
+  color: var(--header-from);
+}
+
+/* ---------- "On this page" navs (about.html, blog.html) ---------- */
+nav[aria-label="On this page"] ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+nav[aria-label="On this page"] li {
+  display: inline-block;
+  margin: 0 0.4rem 0.4rem 0;
+}
+nav[aria-label="On this page"] a {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+nav[aria-label="On this page"] a:hover { border-color: var(--brand); }
+
+/* ---------- Cards ---------- */
+:where(main) article {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow);
+}
+/* No big gap above the first thing in a card (h3 on the home page, the blog post's <header>) */
+:where(main) article > :first-child,
+:where(main) article > header > :first-child { margin-top: 0; }
+
+/* Only the home-page cards lift (the transition sits on the NORMAL state) */
+[aria-labelledby="featured-heading"] article {
+  transition: transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+}
+[aria-labelledby="featured-heading"] article:hover,
+[aria-labelledby="featured-heading"] article:focus-within {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+[aria-labelledby="featured-heading"] article a {
+  font-weight: 600;
+}
+
+/* ---------- Description lists (tech stack, glossary) ---------- */
+dl { margin: 0; }
+dt {
+  font-weight: 700;
+  margin-top: 1rem;
+}
+dd {
+  margin: 0.25rem 0 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--brand-soft);
+  color: var(--text-muted);
+}
+
+/* ---------- FAQ: details / summary ---------- */
+details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+}
+summary {
+  display: block;                       /* removes the default ▶ marker */
+  min-height: var(--tap);
+  padding: 0.7rem 2.5rem 0.7rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "+";
+  position: absolute;
+  right: 1rem;
+  top: 0.6rem;
+  font-size: 1.25rem;
+  color: var(--brand);
+}
+details[open] summary::after { content: "−"; }
+details[open] summary { border-bottom: 1px solid var(--border); }
+details > :not(summary) {
+  margin: 0;
+  padding: 0.75rem 1rem;
+}
+
+/* ---------- Buttons (secondary by default, primary for the main action) ---------- */
+button,
+a[href="blog.html"]:where([aria-labelledby="hero-heading"] *),
+a[href="apply.html"]:where([aria-labelledby="hero-heading"] *),
+main > p > a[href="index.html"]:only-child {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 0.6rem 1.25rem;
+  border: 2px solid var(--brand);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--speed) var(--ease), color var(--speed) var(--ease), transform 100ms var(--ease);
+}
+
+/* Primary: form submit (not "Save draft"), the first hero link, the 404 link */
+button[type="submit"]:not([formnovalidate], [value]),
+[aria-labelledby="hero-heading"] p a:first-child,
+main > p > a[href="index.html"]:only-child {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+
+button:hover,
+[aria-labelledby="hero-heading"] p a:hover,
+main > p > a[href="index.html"]:only-child:hover {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+  color: var(--on-brand);
+}
+button:active { transform: scale(0.97); }
+button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ---------- Forms (apply.html) ---------- */
+form > div { margin-bottom: 1rem; }
+
+fieldset {
+  min-width: 0;              /* fieldsets default to min-width: min-content, so wide content
+                                (the file input) made apply.html scroll sideways on phones */
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem 0.5rem;
+  margin: 0 0 1.25rem;
+}
+legend {
+  font-weight: 700;
+  font-size: var(--step-1);
+  color: var(--brand);
+  padding-inline: 0.4rem;
+}
+fieldset > div { margin-bottom: 1rem; }
+
+/* A fieldset INSIDE a fieldset (Work mode, Core skills): lighter, no card */
+fieldset fieldset {
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0.5rem 0 0;
+}
+fieldset fieldset legend { font-size: var(--step-0); color: var(--text); padding-inline: 0; }
+
+label[for] {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Radio and checkbox labels wrap their input: make each one a tappable chip */
+label:has(> input[type="radio"]),
+label:has(> input[type="checkbox"]) {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 0.55rem 0.9rem 0.55rem 0.6rem;
+  margin: 0 0.4rem 0.5rem 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+label:has(> input:checked) {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  font-weight: 600;
+}
+
+input:not([type="radio"], [type="checkbox"], [type="file"], [type="hidden"]),
+select,
+textarea {
+  display: block;
+  width: 100%;
+  min-height: var(--tap);
+  padding: 0.55rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--speed) var(--ease), box-shadow var(--speed) var(--ease);
+}
+textarea { resize: vertical; min-height: 8rem; }
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+
+/* Show red only AFTER the user has interacted (not on page load) */
+input:user-invalid,
+textarea:user-invalid {
+  border-color: var(--danger);
+}
+
+input[type="file"] { display: block; max-width: 100%; padding: 0.5rem 0; }
+
+::placeholder { color: var(--text-muted); opacity: 1; }
+
+/* ---------- Footer ---------- */
+body > footer {
+  margin-top: 2rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+body > footer p { margin: 0 0 0.5rem; }
+body > footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+body > footer li { display: inline-block; margin-right: 0.25rem; }
+body > footer ul a {
+  display: inline-block;
+  min-height: var(--tap);
+  padding: 0.65rem 0.9rem;
+  font-weight: 600;
+}
+
+
+/* ===================================================================
+   6. PAGE-SPECIFIC
+   =================================================================== */
+
+/* ---------- Home (index.html) hero ---------- */
+[aria-labelledby="hero-heading"] {
+  padding: 1rem 0 0.5rem;
+}
+[aria-labelledby="hero-heading"] > p:first-of-type {
+  font-size: var(--step-1);
+  color: var(--text-muted);
+}
+[aria-labelledby="hero-heading"] p a + a { margin-left: 0.5rem; }
+
+/* ---------- Profile photo (index + about) ---------- */
+img[src*="profile"] {
+  width: 10rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--surface);
+  box-shadow: var(--shadow);
+  margin: 0.5rem 0;
+}
+
+/* ---------- About: experience list ---------- */
+#experience li { margin-bottom: 0.75rem; }
+
+/* ---------- Blog ---------- */
+.tag {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+main > aside {
+  background: var(--brand-soft);
+  border-left: 4px solid var(--brand);
+  border-radius: var(--radius);
+  padding: 0.25rem 1.25rem 1rem;
+  margin: 1.5rem 0;
+}
+main > aside h2 { margin-top: 0.75rem; font-size: var(--step-1); }
+article > header p,
+article > footer {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+:where(main) article img { border-radius: var(--radius); }
+
+/* ---------- Dashboard ---------- */
+progress,
+meter {
+  display: block;
+  width: min(24rem, 100%);
+  height: 1rem;
+  margin-top: 0.25rem;
+}
+#progress > div,
+#skills > div { margin-bottom: 0.9rem; }
+#progress label[for],
+#skills label[for] { margin-bottom: 0; }
+
+video,
+iframe {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+picture img,
+#media img { border-radius: var(--radius); }
+
+[popover] {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1.25rem;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-hover);
+}
+
+dialog {
+  border: none;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: min(28rem, 90vw);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 20px 50px rgb(0 0 0 / 0.35);
+}
+dialog::backdrop {
+  background: rgb(15 23 42 / 0.6);
+  backdrop-filter: blur(2px);
+}
+dialog h3 { margin-top: 0; }
+dialog button + button { margin-left: 0.5rem; }
+dialog button[value="confirm"] {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: var(--surface);
+}
+
+/* ---------- 404 ---------- */
+main:has(> p > a[href="index.html"]:only-child) {
+  text-align: center;
+  padding-block: 4rem;
+}
+main:has(> p > a[href="index.html"]:only-child) p {
+  margin-inline: auto;
+}
+
+
+/* ===================================================================
+   8. PAGE LAYOUT (Day 16) — Flexbox + Grid, mobile-first
+   Breakpoints: base = phones · 40rem (640px) = tablets · 64rem (1024px) = laptops.
+   Page-specific layouts are scoped with :has(), so no HTML changes were needed:
+     index      → [aria-labelledby="hero-heading"], [aria-labelledby="featured-heading"]
+     about      → main:has(> #education)
+     blog       → main:has(> #glossary)
+     apply      → main:has(> form)
+     dashboard  → main:has(> #progress)
+     404        → main:has(> p > a[href="index.html"]:only-child)
+   =================================================================== */
+
+/* ---------- D16 Task 1 — the page: header / main / footer ---------- */
+
+/* Three rows: header and footer take their content height, main takes the rest (1fr), so the
+   footer sits at the bottom of short pages like the 404. minmax(0, 1fr) for the single column
+   stops any wide child (a table, a video) from stretching the whole page (the Day 15 bug). */
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100dvh;
+}
+
+/* FOUND IN TESTING (overflow on 4 pages at 320–768px): header, main and footer keep their
+   Day 11 "max-width: 60rem; margin-inline: auto" centring. On a GRID ITEM, auto margins switch
+   off the default stretching, so the item becomes fit-content sized: it refuses to get narrower
+   than its widest unbreakable content (its min-content), and main stuck out past the screen.
+   As plain blocks on Day 11 they simply took the available width. width: 100% restores that:
+   full width of the column, capped by max-width, still centred by the auto margins. */
+body > header,
+main,
+body > footer {
+  width: 100%;
+}
+
+/* FOUND IN TESTING: when the skip link is focused, Day 11 makes it position: static — which
+   would turn it into a 4th grid item and push the header into the stretchy 1fr row. Keep it
+   absolutely positioned (outside the grid) while focused, at the top-left. */
+a[href="#main-content"]:focus {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  z-index: 100;
+}
+
+/* ---------- D16 Task 2 — header: logo left, nav right, wraps on phones ---------- */
+
+/* One dimension, content-sized → Flexbox. flex-wrap lets the nav drop below the logo
+   on narrow screens instead of squeezing or overflowing. */
+body > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+}
+body > header nav {
+  margin-left: auto;              /* swallows the free space: nav goes to the right */
+}
+
+/* Nav links in a wrapping row (they were inline-block list items with margins since Day 11) */
+nav[aria-label="Main"] ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+}
+nav[aria-label="Main"] li {
+  margin: 0;
+}
+
+/* ---------- D16 Task 3 — footer: © left, links right ---------- */
+body > footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem 1rem;
+}
+body > footer p {
+  margin: 0;
+}
+body > footer ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+body > footer li {
+  margin: 0;
+}
+
+/* ---------- Home ---------- */
+
+/* D16 Task 4 — hero. Phone: the HTML order (name, tagline, photo, buttons).
+   From 40rem: a 2-column grid with the photo on the right, spanning all three text rows. */
+@media (min-width: 40rem) {
+  [aria-labelledby="hero-heading"] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "title   photo"
+      "tagline photo"
+      "links   photo";
+    align-items: center;
+    column-gap: 2rem;
+  }
+  [aria-labelledby="hero-heading"] > h1          { grid-area: title; margin-bottom: 0; }
+  [aria-labelledby="hero-heading"] > p:first-of-type { grid-area: tagline; }
+  [aria-labelledby="hero-heading"] > img         { grid-area: photo; width: 12rem; }
+  [aria-labelledby="hero-heading"] > p:last-of-type  { grid-area: links; }
+}
+
+/* D16 Task 5 — featured cards: as many columns as fit (3 on desktop, 1 on phones), each at
+   least 16rem — or the full width on tiny screens, thanks to min(100%, 16rem). */
+[aria-labelledby="featured-heading"] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1rem;
+}
+[aria-labelledby="featured-heading"] > h2 {
+  grid-column: 1 / -1;            /* the heading spans every column */
+}
+
+/* D16 Task 5 — SUBGRID: each card (h3, p, link) uses 3 rows of the parent grid, so the titles,
+   texts and "Read …" links line up across the three cards even when the texts differ in length. */
+[aria-labelledby="featured-heading"] article {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0.5rem;
+  margin: 0;                      /* the grid gap replaces the Day 11 card margin */
+}
+[aria-labelledby="featured-heading"] article > * {
+  margin: 0;
+}
+[aria-labelledby="featured-heading"] article > a {
+  align-self: end;                /* links sit on the bottom line of the card */
+  justify-self: start;
+}
+
+/* D16 Task 6 — description lists (tech stack on Home, glossary on Blog).
+   Phone: stacked (dt above dd). From 40rem: a 2-column grid, term left, description right. */
+@media (min-width: 40rem) {
+  main dl {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.75rem 1.5rem;
+  }
+  main dt,
+  main dd {
+    margin: 0;
+  }
+}
+
+/* ---------- About ---------- */
+
+/* D16 Task 8 — the About section: photo beside the text from 40rem (the media-object idea,
+   done with Grid so the photo can span all four paragraphs). */
+@media (min-width: 40rem) {
+  #about {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 1.5rem;
+    align-items: start;
+  }
+  #about > h2  { grid-column: 1 / -1; }
+  #about > img { grid-row: 2 / span 4; margin-top: 0; }
+  #about > p   { grid-column: 2; }
+}
+
+/* D16 Task 8 — skills as wrapping chips (Flexbox, the Day 13 tag pattern) */
+#skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+#skills li {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-weight: 600;
+  font-size: var(--step--1);
+}
+
+/* D16 Task 7 — from 64rem: the "On this page" nav becomes a STICKY LEFT SIDEBAR.
+   The h1 spans both columns; the nav sits in column 1 spanning all four section rows;
+   align-self: start stops it stretching to the full height, so position: sticky works
+   (a sticky element needs room to move inside its grid area). */
+@media (min-width: 64rem) {
+  main:has(> #education) {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    column-gap: 2.5rem;
+    align-items: start;
+  }
+  main:has(> #education) > h1 {
+    grid-column: 1 / -1;
+  }
+  main:has(> #education) > nav {
+    grid-column: 1;
+    grid-row: 2 / span 4;
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+  }
+  main:has(> #education) > section {
+    grid-column: 2;
+  }
+  /* In the sidebar, the chips stack vertically and fill its width */
+  main:has(> #education) > nav li {
+    display: block;
+    margin: 0 0 0.4rem;
+  }
+  main:has(> #education) > nav a {
+    display: block;
+  }
+}
+
+/* ---------- Blog ---------- */
+
+/* D16 Task 9 — from 64rem: the post and the related-posts aside side by side, the aside sticky;
+   FAQ and glossary side by side below. Three columns so the bottom row can split differently
+   from the top row: the post spans 2, the aside 1; the FAQ 1, the glossary 2. */
+@media (min-width: 64rem) {
+  main:has(> #glossary) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 16rem;
+    grid-template-areas:
+      "title title title"
+      "toc   toc   toc"
+      "post  post  side"
+      "faq   gloss gloss";
+    column-gap: 2rem;
+    align-items: start;
+  }
+  main:has(> #glossary) > h1       { grid-area: title; }
+  main:has(> #glossary) > nav      { grid-area: toc; }
+  main:has(> #glossary) > article  { grid-area: post; }
+  main:has(> #glossary) > aside    { grid-area: side; position: sticky; top: 1rem; margin: 0; }
+  main:has(> #glossary) > #faq     { grid-area: faq; }
+  main:has(> #glossary) > #glossary { grid-area: gloss; }
+}
+
+/* ---------- Contact / Hire me ---------- */
+
+/* D16 Task 10 — the three buttons in a wrapping flex row (all widths) */
+main:has(> form) form > div:last-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* D16 Task 10 — from 64rem: the four fieldsets in a 2×2 grid. The hidden input has
+   display: none, so it takes no cell. The confirm checkbox and the button row span both columns.
+   align-items: stretch (the default) makes the two fieldsets in each row the same height. */
+@media (min-width: 64rem) {
+  main:has(> form) form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+  main:has(> form) form > fieldset,
+  main:has(> form) form > div {
+    margin: 0;
+  }
+  main:has(> form) form > div {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Dashboard ---------- */
+
+/* D16 Task 11 — every section becomes a widget card in an auto-fit grid. */
+main:has(> #progress) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.25rem;
+  align-items: start;
+  /* FOUND IN TESTING: with 3 columns, "progress, skills" fill 2 cells, then the 2-wide media
+     widget doesn't fit in the 1 remaining cell, jumps to the next row and leaves a HOLE in the
+     top-right. dense lets later widgets (location, contact …) backfill holes. It changes the
+     visual order, which is OK here: the widgets are independent, so their order carries no
+     meaning — but never use dense where the reading or Tab order matters (Day 14, §5). */
+  grid-auto-flow: dense;
+}
+main:has(> #progress) > h1 {
+  grid-column: 1 / -1;
+}
+main:has(> #progress) > section {
+  container-type: inline-size;    /* each widget is a CONTAINER (see the @container rule below) */
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+main:has(> #progress) > section > h2 {
+  margin-top: 0;
+  font-size: var(--step-1);
+}
+
+/* The media widget spans 2 columns — but ONLY from 48rem, when there are surely 2 columns.
+   On a 1-column phone grid, span 2 would create an extra implicit column and overflow. */
+@media (min-width: 48rem) {
+  #media {
+    grid-column: span 2;
+  }
+}
+
+/* D16 Task 11 — CONTAINER QUERY: in a wide widget (26rem+), each progress/skill row becomes
+   one line — label | bar | value. In a narrow widget they stay stacked. The SAME widget
+   reacts to its own width, wherever the grid puts it. */
+@container (min-width: 26rem) {
+  #progress > div,
+  #skills > div {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 0.75rem;
+  }
+  #progress > div progress,
+  #skills > div meter {
+    margin-top: 0;
+  }
+}
+
+/* ---------- 404 ---------- */
+
+/* D16 Task 12 — the message centred both ways: main fills the 1fr row (Task 1), and
+   place-content: center puts the content block in the middle of it. */
+main:has(> p > a[href="index.html"]:only-child) {
+  display: grid;
+  place-content: center;
+  padding-block: 2rem;
+}
+
+
+/* ===================================================================
+   7. MEDIA QUERIES
+   =================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* ===================================================================
+   DAY 16 PART C — TEST RESULTS (2026-11-22, measured in headless Chrome)
+
+   13. Widths 320 / 375 / 768 / 1024 / 1440 on all 6 pages: NO sideways scroll on any page
+       after two fixes:
+       • main (and the header/footer) stuck out past the screen on about, blog, apply and
+         dashboard at 320–768px. Cause: they're grid items with "margin-inline: auto", and auto
+         margins stop grid items stretching, so they became fit-content sized and couldn't
+         shrink below their content. Fix: width: 100% (top of section 8).
+       • The skip link, when focused, would have become a 4th body grid item and pushed the
+         header into the 1fr row. Fix: it stays position: absolute while focused.
+       The blog's Java <pre> block is wider than a phone, but it scrolls inside its own box
+       (overflow-x: auto from Day 11), so the page itself doesn't.
+       Layouts confirmed: about = 2 columns from 1024px (sticky sidebar), blog = 3 columns
+       from 1024px, dashboard = 1 → 2 → 3 columns (320 / 768 / 1024px), 404 centred.
+       Dashboard bug found: a hole in the top-right when the 2-column media widget wrapped
+       → grid-auto-flow: dense (the widgets' order doesn't matter, so this is safe here).
+
+   14. Light and dark: no new colours were added in section 8 (only layout), and the new
+       skills chips reuse --brand on --brand-soft: 6.16:1 light, 5.75:1 dark. Screenshots of
+       the home page (light), about and dashboard (dark) checked.
+
+   15. Keyboard: the sticky sidebars (About nav, Blog aside) sit in their OWN grid column,
+       so they never overlap the content column, and focused links in main can't be hidden
+       behind them. (A sticky HEADER would be the risky case; this site's header isn't sticky.)
+
+   16. Lighthouse: not run here (it needs the Chrome DevTools panel). Every nav link, footer
+       link, summary, button and chip still measured ≥ 44px tall, so the Day 11 result
+       (touch targets fixed → 24/24) should hold. Run it on index.html to confirm.
+
+   17. W3C CSS validator: 2 "errors", both container-query lines (container-type and the
+       @container rule) that the validator doesn't know yet. 0 real errors.
+   =================================================================== */

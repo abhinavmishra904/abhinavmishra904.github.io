@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | Abhinav Mishra</title>
+  <meta name="description" content="Portfolio and learning dashboard of Abhinav Mishra, Java Full Stack Developer focusing on backend systems, APIs, and accessible web interfaces.">
+  <meta name="author" content="Abhinav Mishra">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23111827'/%3E%3Ctext%20x='50%25'%20y='56%25'%20dominant-baseline='middle'%20text-anchor='middle'%20fill='%23ffffff'%20font-family='sans-serif'%20font-size='14'%20font-weight='bold'%3EAM%3C/text%3E%3C/svg%3E">
+  <meta property="og:title" content="Home | Abhinav Mishra">
+  <meta property="og:description" content="Java Full Stack Developer portfolio covering backend engineering, learning notes, and accessible HTML5.">
+  <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
+  <meta property="og:type" content="website">
+  <!-- Day 11: the ONE shared stylesheet for every page -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main-content">Skip to main content</a>
+
+  <header>
+    <a href="index.html" aria-label="Abhinav Mishra Home">
+      <svg width="36" height="36" viewBox="0 0 36 36" role="img" aria-label="AM monogram logo">
+        <rect width="36" height="36" rx="8" fill="#111827"></rect>
+        <text x="18" y="23" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">AM</text>
+      </svg>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="apply.html">Contact / Hire me</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Abhinav Mishra</h1>
+      <p>Java Full Stack Developer building reliable backend services, fintech workflows, and accessible web interfaces.</p>
+      <img src="images/profile.jpeg" alt="Portrait of Abhinav Mishra" width="320" height="320" fetchpriority="high">
+      <p>
+        <a href="blog.html">View my work</a>
+        <a href="apply.html">Hire me</a>
+      </p>
+    </section>
+
+    <section aria-labelledby="featured-heading">
+      <h2 id="featured-heading">Featured</h2>
+      <article>
+        <h3>Latest Blog Post</h3>
+        <p>Notes on semantic markup, accessible media, and structuring clean HTML documents before layering CSS and backend APIs.</p>
+        <a href="blog.html">Read blog</a>
+      </article>
+      <article>
+        <h3>Learning Dashboard</h3>
+        <p>Track progress, skill meters, and milestone checks across HTML5, Java, Spring Boot, and frontend architecture.</p>
+        <a href="dashboard.html">Open dashboard</a>
+      </article>
+      <article>
+        <h3>Fintech &amp; Full-Stack Systems</h3>
+        <p>Experience designing resilient services, structured data models, and clear user workflows for banking and enterprise applications.</p>
+        <a href="about.html">Explore background</a>
+      </article>
+    </section>
+
+    <section aria-labelledby="stack-heading">
+      <h2 id="stack-heading">Tech stack</h2>
+      <dl>
+        <dt>Backend &amp; Data</dt>
+        <dd>Java, Spring Boot, REST APIs, SQL</dd>
+        <dt>Frontend &amp; Web</dt>
+        <dd>Semantic HTML5, TypeScript, React, GraphQL</dd>
+        <dt>Workflow &amp; Tooling</dt>
+        <dd>Git, GitHub Pages, Accessibility Auditing</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="faq-heading">
+      <h2 id="faq-heading">FAQ</h2>
+      <details>
+        <summary>Why is this site pure HTML first?</summary>
+        <p>Starting with semantic HTML5 and keyboard accessibility ensures the underlying document structure and navigation work before adding visual styling and backend integration.</p>
+      </details>
+      <details>
+        <summary>Are you open to full-stack or backend roles?</summary>
+        <p>Yes. Use the Contact / Hire me page to share role details, project scope, or collaboration inquiries.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <time datetime="2026">2026</time> Abhinav Mishra</p>
+    <ul>
+      <li><a href="mailto:abhinavmishra904@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://github.com/abhinavmishra904" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    </ul>
+  </footer>
+
+  <!--
+  Day 5 Testing Results:
+  - W3C Validator (2026-11-19): 0 errors on all 6 pages. Fixed: favicon data: URL had raw spaces (now %20).
+    1 warning left on about.html: table border="1" is obsolete; replace with CSS in Week 2.
+  - Lighthouse Accessibility (index.html): 23/24 audits passed. Failing: touch target size (nav links, FAQ summaries, footer links too small/close; needs 24x24px) — fix with CSS padding in Week 2
+  - Navigation check: all nav, in-page #anchor and image paths resolve on all 6 pages (automated check).
+  - Keyboard tab test (index.html): PASS — skip link is the first Tab stop, Enter on it jumps into main content, Enter opens FAQ details.
+  -->
+</body>
+</html>

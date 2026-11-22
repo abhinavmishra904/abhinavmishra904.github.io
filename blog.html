@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- DOCTYPE: tells the browser this is an HTML5 document -->
+<html lang="en">
+
+<!-- ======================= HEAD: info ABOUT the page (not shown) ======================= -->
+<head>
+  <!-- charset: supports all characters (₹, é, emojis) -->
+  <meta charset="UTF-8">
+  <!-- viewport: fit the page to phone screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- title: UNIQUE per page — pattern "Page | Site name" -->
+  <title>Blog | Abhinav Mishra</title>
+  <!-- description: the grey summary text Google shows under the title in search results -->
+  <meta name="description" content="A deep dive into building reliable enterprise liquidity management solutions, handling SWIFT and ISO 20022 messages, and processing real-time cash sweeps with Spring Boot microservices.">
+  <meta name="author" content="Abhinav Mishra">
+
+  <!-- favicon: the same "AM" SVG icon on every page -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='6'%20fill='%23111827'/%3E%3Ctext%20x='50%25'%20y='56%25'%20dominant-baseline='middle'%20text-anchor='middle'%20fill='%23ffffff'%20font-family='sans-serif'%20font-size='14'%20font-weight='bold'%3EAM%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph: og:type "article" suits a blog post -->
+  <meta property="og:title" content="Building Resilient Liquidity Management Microservices with Spring Boot">
+  <meta property="og:description" content="Handling SWIFT and ISO 20022 messages and real-time cash sweeps with Spring Boot microservices.">
+  <meta property="og:image" content="https://abhinavmishra904.github.io/images/profile.jpeg">
+  <meta property="og:type" content="article">
+  <!-- Day 11: the ONE shared stylesheet for every page -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- ======================= BODY: everything the user SEES ======================= -->
+<body>
+
+  <!-- Skip link: first thing in <body>, lets keyboard users jump past the header -->
+  <a href="#main-content">Skip to main content</a>
+
+  <!-- SHARED header: identical on every page, except where aria-current sits -->
+  <header>
+    <a href="index.html" aria-label="Abhinav Mishra Home">
+      <svg width="36" height="36" viewBox="0 0 36 36" role="img" aria-label="AM monogram logo">
+        <rect width="36" height="36" rx="8" fill="#111827"></rect>
+        <text x="18" y="23" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">AM</text>
+      </svg>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <!-- aria-current="page": THIS is the Blog page -->
+        <li><a href="blog.html" aria-current="page">Blog</a></li>
+        <li><a href="apply.html">Contact / Hire me</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- main: the unique content of this page (only one per page); the skip link jumps here -->
+  <main id="main-content">
+
+    <!-- h1: the ONE main heading of the page, now inside <main> -->
+    <h1>Abhinav's Tech Blog</h1>
+
+    <!-- The old in-page links, kept as a second nav with its own aria-label -->
+    <nav aria-label="On this page">
+      <ul>
+        <li><a href="#article">Latest Post</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#glossary">Glossary</a></li>
+      </ul>
+    </nav>
+
+    <!-- article: self-contained content — a blog post makes sense on its own -->
+    <article id="article">
+
+      <!-- An article can have its OWN header: post title, author, date -->
+      <header>
+        <!-- h2: the post title sits under the page's h1 -->
+        <h2>Building Resilient Liquidity Management Microservices with Spring Boot</h2>
+        <!-- time: humans read "June 6, 2026", machines read datetime="2026-06-06" -->
+        <p>By Abhinav Mishra | Published on <time datetime="2026-06-06">June 6, 2026</time></p>
+        <!-- del = removed text (strikethrough), ins = added text (underlined) -->
+        <p><del>Initial draft released in May 2026.</del> <ins>Updated for production-grade v2 standards in June 2026.</ins></p>
+      </header>
+
+      <!-- p: paragraph. abbr title="..." shows the full form on hover -->
+      <p>
+        Building enterprise banking software for Tier-1 clients requires uncompromising reliability, especially when dealing with high-volume financial transactions like cash sweeps and intercompany loans. As developers, we often integrate with external systems via a REST <abbr title="Application Programming Interface">API</abbr> or message brokers like Apache Kafka and <abbr title="IBM Message Queue">IBM MQ</abbr>. Ensuring that these distributed services handle state transitions cleanly without dropping payloads is paramount.
+      </p>
+
+      <!-- mark: highlights the key phrase -->
+      <p>
+        When processing financial datasets, <mark>precision in real-time balance calculations</mark> can prevent critical downstream reconciliation failures. Whether you are executing a sweep or generating multi-entity forward cash projections, your core services must be optimized for performance under heavy load.
+      </p>
+
+      <!-- kbd = keys to press, code = a file name / code inside a sentence -->
+      <p>
+        To execute a command or trigger a batch utility, you can press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> in your IDE, or inspect runtime variables directly inside your <code>application.yml</code> file using standard property injection.
+      </p>
+
+      <!-- figure: self-contained image + figcaption (its caption) -->
+      <figure>
+        <!-- width/height reserve space so the page doesn't jump while loading -->
+        <img src="https://picsum.photos/600/300" alt="Architecture diagram showing microservices communicating via Kafka and REST gateways" width="600" height="300">
+        <figcaption>Figure 1: High-level event-driven architecture for multi-entity liquidity management flows.</figcaption>
+      </figure>
+
+      <p>Here is a real Java snippet demonstrating how we structure a transactional service payload handler with generic type safety:</p>
+
+      <!-- pre keeps every space and line break; code marks it as code.
+           Code starts right after <code> (no blank first line).
+           &lt; and &gt; display < and > for Java generics. -->
+      <pre><code>public class LiquidityProcessor&lt;T extends FinancialPayload&gt; {
+    public void processTransaction(T payload) {
+        if (payload.isValid()) {
+            System.out.println("Processing transaction ID: " + payload.getId());
+        }
+    }
+}</code></pre>
+
+      <!-- Quote with attribution: blockquote holds ONLY the quote;
+           figcaption holds who said it; cite = the TITLE of the work it came from -->
+      <figure>
+        <blockquote>
+          <p>Simplicity is prerequisite for reliability.</p>
+        </blockquote>
+        <figcaption>— Edsger W. Dijkstra, <cite>How do we tell truths that might hurt?</cite></figcaption>
+      </figure>
+
+      <!-- The article's own footer: tags for this post -->
+      <footer>
+        <!-- span class="tag": a hook for styling each tag with CSS on Day 2 of CSS -->
+        <p>Tags: <span class="tag">Java</span>, <span class="tag">Spring Boot</span>, <span class="tag">Microservices</span>, <span class="tag">Fintech</span></p>
+        <!-- address: contact details of the ARTICLE's author — moved here from the old page footer -->
+        <address>
+          Written by Abhinav Mishra, Mumbai, India ·
+          <a href="mailto:abhinavmishra904@gmail.com">abhinavmishra904@gmail.com</a>
+        </address>
+      </footer>
+
+    </article>
+
+    <!-- aside: related but non-essential content (sidebar) -->
+    <aside>
+      <!-- h2, not h3: it sits directly under the page h1 (no skipped heading levels) -->
+      <h2>Related Posts &amp; Tips</h2>
+      <ul>
+        <li><a href="#article">Mastering ISO 20022 and SWIFT Message Parsing</a></li>
+        <li><a href="#article">Zero-Defect UAT Strategies for Enterprise Banking Software</a></li>
+      </ul>
+    </aside>
+
+    <!-- FAQ: details = collapsible box, summary = the clickable question -->
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What messaging protocols are typically used in liquidity management systems?</summary>
+        <p>Enterprise systems commonly rely on event-driven middleware like Apache Kafka, IBM MQ, and ActiveMQ, alongside ISO 20022 and SWIFT messaging standards (such as MT940 and pain.001).</p>
+      </details>
+
+      <details>
+        <summary>How do you ensure zero-defect deployments during UAT?</summary>
+        <p>Rigorous unit testing with JUnit and Mockito, strict TDD practices, comprehensive end-to-end regression testing, and thorough validation of payment initiation and balance builder flows help achieve zero defects.</p>
+      </details>
+    </section>
+
+    <!-- Glossary: dl = description list, dt = term, dd = its definition -->
+    <section id="glossary">
+      <h2>Glossary</h2>
+      <dl>
+        <dt>Cash Sweep</dt>
+        <dd>An automated transfer of funds from subsidiary accounts into a primary master concentration account.</dd>
+
+        <dt>ISO 20022</dt>
+        <dd>An international messaging standard for the financial services industry, facilitating rich data electronic data interchange.</dd>
+      </dl>
+    </section>
+
+  </main>
+
+  <!-- SHARED footer: identical on every page. &copy; shows © -->
+  <footer>
+    <p>&copy; <time datetime="2026">2026</time> Abhinav Mishra</p>
+    <ul>
+      <li><a href="mailto:abhinavmishra904@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/abhinav-mishra-3a20361ab" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://github.com/abhinavmishra904" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
